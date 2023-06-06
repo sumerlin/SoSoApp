@@ -1,0 +1,14 @@
+<resources>
+    <!--Gloading 页面多状态管理-->
+    <string name="to_load_success">load success</string>
+    <string name="to_load_failed">load failed</string>
+    <string name="to_load_empty">load empty</string>
+    <string name="loading">Loading…</string>
+    <string name="load_failed">Load failed. click to retry!</string>
+    <string name="load_failed_no_network">Oops, network is lost!  click to retry</string>
+    <string name="empty">Empty!</string>
+    <string name="str_none" />
+    <!--基础信息-->
+    <string name="debug_databinding_warning">%s 未遵循 DataBinding 严格模式，存在 Null 安全风险</string>
+    <string name="network_not_good">网络不给力</string>
+</resources>

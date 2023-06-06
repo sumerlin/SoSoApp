@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="loginViewModel"
+            type="com.billy.android.soso.app.ui.MainActivity.LoginViewModel" />
+
+        <variable
+            name="clickProxy"
+            type="com.billy.android.soso.app.ui.MainActivity.ClickProxy" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.MainActivity">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:text="@{loginViewModel.input}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="login"
+            android:onClick="@{clickProxy::clickLogin}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etView" />
+
+
+        <androidx.constraintlayout.helper.widget.Flow
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:constraint_referenced_ids="tvName,btnGet,btnPost"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnLogin" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#339911"
+            android:padding="5dp"
+            android:text="@{loginViewModel.infoList.datas.get(2).title}" />
+
+        <Button
+            android:id="@+id/btnGet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="get" />
+
+        <Button
+            android:id="@+id/btnPost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="@{clickProxy::clickPost}"
+            android:text="post" />
+
+
+        <!--        <FrameLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:background="#55000000"-->
+        <!--            app:layout_constraintStart_toStartOf="parent"-->
+        <!--            app:layout_constraintEnd_toEndOf="parent"-->
+        <!--            android:layout_height="match_parent" />-->
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

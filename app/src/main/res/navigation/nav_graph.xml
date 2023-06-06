@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:startDestination="@id/rxjavaFragment">
+    <!--    app:startDestination="@id/listFragment">-->
+
+    <!--fragment 代表Fragment，action代表 跳转动作-->
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.billy.android.soso.app.ui.page.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main">
+
+        <action
+            android:id="@+id/action_mainFragment_to_DetailFragment"
+            app:destination="@id/detailFragment"
+            app:enterAnim="@anim/x_fragment_enter"
+            app:exitAnim="@anim/x_fragment_exit"
+            app:popEnterAnim="@anim/x_fragment_pop_enter"
+            app:popExitAnim="@anim/x_fragment_pop_exit" />
+
+        <action
+            android:id="@+id/action_mainFragment_to_ListGroupFragment"
+            app:destination="@id/listGroupFragment"
+            app:enterAnim="@anim/x_fragment_enter"
+            app:exitAnim="@anim/x_fragment_exit"
+            app:popEnterAnim="@anim/x_fragment_pop_enter"
+            app:popExitAnim="@anim/x_fragment_pop_exit" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.billy.android.soso.app.ui.page.DetailFragment"
+        android:label="DetailFragment"
+        tools:layout="@layout/fragment_detail">
+
+        <action
+            android:id="@+id/action_detailFragment_to_ListGroupFragment"
+            app:destination="@id/listGroupFragment"
+            app:enterAnim="@anim/x_fragment_enter"
+            app:exitAnim="@anim/x_fragment_exit"
+            app:popEnterAnim="@anim/x_fragment_pop_enter"
+            app:popExitAnim="@anim/x_fragment_pop_exit" />
+
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/listGroupFragment"
+        android:name="com.billy.android.soso.app.ui.page.ListGroupFragment"
+        android:label="ListGroupFragment"
+        tools:layout="@layout/fragment_list_group">
+
+        <action
+            android:id="@+id/action_listGroupFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@anim/x_fragment_enter"
+            app:exitAnim="@anim/x_fragment_exit"
+            app:popEnterAnim="@anim/x_fragment_pop_enter"
+            app:popExitAnim="@anim/x_fragment_pop_exit"
+            app:popUpTo="@id/mainFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/refreshListFragment"
+        android:name="com.billy.android.soso.app.ui.page.RefreshListFragment"
+        android:label="RefreshListFragment"
+        tools:layout="@layout/fragment_refresh_list"/>
+
+    <fragment
+        android:id="@+id/listViewDataBindingFragment"
+        android:name="com.billy.android.soso.app.ui.page.ListViewDataBindingFragment"
+        android:label="ListViewDataBindingFragment"
+        tools:layout="@layout/fragment_listview_databinding"/>
+    <fragment
+        android:id="@+id/workManagerFragment"
+        android:name="com.billy.android.soso.app.ui.page.WorkManagerFragment"
+        android:label="WorkManagerFragment"
+        tools:layout="@layout/fragment_workmanager">
+        <action
+            android:id="@+id/action_workManagerFragment_to_refreshListFragment"
+            app:destination="@id/refreshListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/rxjavaFragment"
+        android:name="com.billy.android.soso.app.ui.page.RxjavaFragment"
+        android:label="RxjavaFragment" />
+
+
+</navigation>
