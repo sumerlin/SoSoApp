@@ -11,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -52,8 +50,11 @@ public abstract class BaseFragment extends Fragment implements IViewStatusAction
         super.onViewCreated(view, savedInstanceState);
         //TODO:需要添加吗？
 //        addOnBackPressed();
-
+        //没有开启懒加载才在这里执行 数据的初始化
+        if (!isOpenLazyLoad())
+            initLoadData();
     }
+
 
     @Nullable
     @Override
@@ -75,6 +76,39 @@ public abstract class BaseFragment extends Fragment implements IViewStatusAction
     private View mRootView;
 
     public abstract View intiCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState);
+
+    /********************************************懒加载处理***********************************************************************/
+    public void initLoadData() {
+
+    }
+
+    private boolean mIsOpenLazyLoad = false;  //是否开启懒加载， 默认关闭
+    private boolean mIsLoaded = false; //是否已经加载过数据
+
+    /**
+     * 是否开启懒加载， 默认关闭。 上层重新，便可开启
+     *
+     * @return
+     */
+    public boolean isOpenLazyLoad() {
+        return mIsOpenLazyLoad;
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (mIsOpenLazyLoad && !mIsLoaded) {
+            initLoadData();
+            mIsLoaded = true;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mIsLoaded = false;
+    }
 
     /********************************************显示加载、成功、失败、空 页面状态***********************************************************************/
     private Gloading.Holder mViewStatusHolder;
@@ -123,12 +157,12 @@ public abstract class BaseFragment extends Fragment implements IViewStatusAction
     }
 
 
-
     /********************************************利用事件驱动来控制加载、成功、失败、空 页面状态***********************************************************************/
     /**
      * 利用事件驱动来控制加载、成功、失败、空 页面状态
      * TODO: 2023/5/31 网络接口回调发送事件， 有可能事件的消费没有网络接口回调执行快，所以中间事件会被覆盖没有消费
      * TODO: NetObserverWrapper.  onNext  之后 马上调用onComplete
+     *
      * @param stateEventCode
      */
     protected void switchStateFromEventCode(int stateEventCode) {
@@ -208,11 +242,10 @@ public abstract class BaseFragment extends Fragment implements IViewStatusAction
     protected void onBackPressed() {
         nav().navigateUp();
     }
+
     protected NavController nav() {
         return NavHostFragment.findNavController(this);
     }
-
-
 
 
 }
