@@ -15,3 +15,8 @@ ViewModel 用来托管view状态和事件，ViewModel 作为 视图控制器 和
 1.解决 ViewPager2嵌套的冲突问题 <br>
 2.RecyclerView处于 Fling 状态，无法左右滑动 ViewPager2 <br>
 3.Androidx ViewPage2 + Fragment 懒加载设置 <br>
+
+图片：
+1.封装Glide 接口。
+2.提供ImageLoader 图片加载工具。
+3.提供普通、圆角、圆形、高斯模糊 加载方法。
