@@ -4,6 +4,8 @@ import androidx.viewbinding.BuildConfig;
 
 import com.billy.android.soso.app.configs.NetHttpManager;
 import com.billy.android.soso.framwork.BaseApplication;
+import com.billy.android.soso.framwork.common.image.Config;
+import com.billy.android.soso.framwork.common.image.ImageLoader;
 import com.billy.android.soso.framwork.view.status.Gloading;
 import com.billy.android.soso.framwork.view.status.GlobalAdapter;
 
@@ -14,9 +16,11 @@ public class MyApp extends BaseApplication {
         super.onCreate();
         NetConfig();
         UiViewStatusConfig();
+        ImageConfig();
+
     }
 
-    private void NetConfig(){
+    private void NetConfig() {
         NetHttpManager.init(this);
     }
 
@@ -27,5 +31,13 @@ public class MyApp extends BaseApplication {
         //Gloading.Holder 对外以提供加载成功、加载是把你、空页面、重试方法给activity或者 fragment外者调用
         //所以核心逻辑还是在Gloading.Holder，  提供Adapter 是给了不同需求添加不一样的页面
         Gloading.initDefault(new GlobalAdapter());
+    }
+
+    public void ImageConfig() {
+        Config.Builder builder = new Config.Builder()
+                .placeholder(R.drawable.ic_launcher_background)
+                .error(R.drawable.ic_launcher_background)
+                .fallback(R.drawable.ic_launcher_background);
+        ImageLoader.init(builder);
     }
 }

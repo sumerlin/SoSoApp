@@ -6,7 +6,7 @@
 
         <variable
             name="State"
-            type="com.billy.android.soso.app.ui.page.SecurityFragment.SecurityState" />
+            type="com.billy.android.soso.app.ui.page.SingleFragment.SingleState" />
 
 
     </data>
