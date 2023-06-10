@@ -1,13 +1,19 @@
 package com.billy.android.soso.framwork.common.image;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 
+import com.billy.android.soso.framwork.R;
 import com.billy.android.soso.framwork.common.image.transformation.BlurTransformation;
 import com.billy.android.soso.framwork.common.image.transformation.RoundedCornersTransformation;
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.load.MultiTransformation;
 import com.bumptech.glide.load.resource.bitmap.CenterCrop;
 import com.bumptech.glide.request.RequestOptions;
@@ -17,7 +23,7 @@ import com.bumptech.glide.request.RequestOptions;
  * Description：
  */
 public class ImageLoader {
-    private ImageBuilder mBuilder;
+    private final ImageBuilder mBuilder;
 
     public static void init(Config.Builder builder) {
         Config.build(builder);
@@ -33,7 +39,7 @@ public class ImageLoader {
      * @param context
      * @return
      */
-    public static ImageBuilder with(Context context) {
+    public static ImageBuilder with(Object context) {
         return new ImageBuilder(context);
     }
 
@@ -42,13 +48,13 @@ public class ImageLoader {
      */
     public static class ImageBuilder {
 
-        private Context context;
+        private final Object context;
         private ImageView imageView;
         private Object source;
 
         private ImageOption imageOption;
 
-        public ImageBuilder(Context context) {
+        public ImageBuilder(Object context) {
             this.context = context;
         }
 
@@ -113,10 +119,24 @@ public class ImageLoader {
      * @param options
      */
     public void doGlide(RequestOptions options) {
-        Glide.with(mBuilder.context)
-                .load(mBuilder.source)
-                .apply(options)
-                .into(mBuilder.imageView);
+        RequestManager requestManager = null;
+        if (mBuilder.context instanceof Context)
+            requestManager = Glide.with((Context) mBuilder.context);
+
+        if (mBuilder.context instanceof Fragment)
+            requestManager =  Glide.with((Fragment) mBuilder.context);
+
+        if (mBuilder.context instanceof FragmentActivity)
+            requestManager =    Glide.with((FragmentActivity) mBuilder.context);
+
+        if (mBuilder.context instanceof View)
+            requestManager =  Glide.with((View) mBuilder.context);
+
+        if (requestManager != null)
+            requestManager
+                    .load(mBuilder.source)
+                    .apply(options)
+                    .into(mBuilder.imageView);
 
     }
 

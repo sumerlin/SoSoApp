@@ -10,6 +10,9 @@ import com.billy.android.soso.app.BR;
 import com.billy.android.soso.app.R;
 import com.billy.android.soso.app.databinding.FragmentGlideBinding;
 import com.billy.android.soso.framwork.common.image.ImageLoader;
+import com.billy.android.soso.framwork.common.image.ImageOption;
+import com.billy.android.soso.framwork.data.livedata.SoMutableLiveData;
+import com.billy.android.soso.framwork.data.observablefield.UiState;
 import com.billy.android.soso.framwork.ui.page.DataBindingConfig;
 import com.billy.android.soso.framwork.ui.page.VmDataBindingFragment;
 import com.billy.android.soso.framwork.ui.viewModel.UiStateHolder;
@@ -39,18 +42,21 @@ public class GlideFragment extends VmDataBindingFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding = (FragmentGlideBinding) getBinding();
+        binding.btnClick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showImageLive();
 
+            }
+        });
 
-//        binding.btnClick.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                showImage();
-//
-//            }
-//        });
+        //showImage();
 
-        showImage();
+    }
 
+    private void showImageLive(){
+        String url = "https://photocdn.sohu.com/20110507/Img280510933.jpg";
+        mState.url.set(url);
     }
 
 
@@ -62,12 +68,12 @@ public class GlideFragment extends VmDataBindingFragment {
 
 
         ImageLoader.with(mActivity)
-                .load(R.drawable.check)
+                .load(url)
                 .into(binding.img04)
                 .show();
         ImageLoader
                 .with(mActivity)
-                .load("")
+                .load(url)
                 .into(binding.img05)
                 .showBlur(25);
         ImageLoader
@@ -82,6 +88,13 @@ public class GlideFragment extends VmDataBindingFragment {
                 .showCircle();
 
 
+        ImageLoader
+                .with(mActivity)
+                .load(imgUrl2)
+                .into(binding.img07)
+                .showCircle();
+
+
 
 
 
@@ -89,6 +102,9 @@ public class GlideFragment extends VmDataBindingFragment {
 
 
     public static class GlideState extends UiStateHolder {
+
+        public UiState<String> url = new UiState<>("");
+
 
     }
 }

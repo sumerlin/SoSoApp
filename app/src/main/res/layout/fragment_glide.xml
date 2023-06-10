@@ -74,10 +74,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             app:constraint_referenced_ids="img04,img05,img06,img07"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:flow_wrapMode="chain"
             app:flow_horizontalStyle="spread"
             app:flow_verticalGap="15dp"
+            app:flow_wrapMode="chain"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/flow01" />
 
@@ -85,12 +85,15 @@
             android:id="@+id/img04"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            app:url="@{State.url}"
             tools:src="@mipmap/ic_launcher" />
 
         <ImageView
             android:id="@+id/img05"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            app:blurLevel="@{20}"
+            app:url="@{State.url}"
             tools:src="@mipmap/ic_launcher" />
 
         <ImageView
@@ -98,6 +101,8 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="10dp"
+            app:url="@{State.url}"
+            app:radius="@{25}"
             tools:src="@mipmap/ic_launcher" />
 
         <ImageView
@@ -105,6 +110,8 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_margin="10dp"
+            app:url="@{State.url}"
+            app:circle="@{true}"
             tools:src="@mipmap/ic_launcher" />
 
 
