@@ -32,6 +32,7 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe;
 import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.Scheduler;
+import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.functions.Action;
 import io.reactivex.rxjava3.functions.BiFunction;
@@ -79,10 +80,120 @@ public class RxjavaFragment extends VmDataBindingFragment {
         binding.btnRxjava.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                rxjavaTest();
-                binding.tvRxjava.setText("doing...");
+//                rxjavaTest();
+//                binding.tvRxjava.setText("doing...");
+                doSomething();
             }
         });
+    }
+
+    private void doSomething() {
+        Task task01 = new Task("任务01");
+        Task task02 = new Task("任务02");
+        Task task03 = new Task("任务03");
+        Task task04 = new Task("任务04");
+
+
+        Observable.just(1,2,3)
+                .toSortedList()
+                .subscribe();
+
+        Observable.just(1,2,3)
+                .toMap(new Function<Integer, String>() {
+                    @Override
+                    public String apply(Integer integer) throws Throwable {
+                        return null;
+                    }
+                }).subscribe();
+        // zip 压缩 都是需要等待两个事件都发送，才执行里面的方法体
+        Observable<String> observable01 = Observable.just(task01).map(new Function<Task, String>() {
+            @Override
+            public String apply(Task task) throws Throwable {
+                Thread.sleep(2000);
+                LogUtil.log(task.taskName+"执行doTask()：线程"+Thread.currentThread().getName());
+                return task.doTask();
+            }
+        }).subscribeOn(Schedulers.io());
+        Observable<String> observable02 = Observable.just(task02).map(new Function<Task, String>() {
+            @Override
+            public String apply(Task task) throws Throwable {
+
+                LogUtil.log(task.taskName+"执行doTask()：线程"+Thread.currentThread().getName());
+                return task.doTask();
+            }
+        }).subscribeOn(Schedulers.io());;
+        Observable<String> observable03 = Observable.just(task03).map(new Function<Task, String>() {
+            @Override
+            public String apply(Task task) throws Throwable {
+
+                LogUtil.log(task.taskName+"执行doTask()：线程"+Thread.currentThread().getName());
+                return task.doTask();
+            }
+        }).subscribeOn(Schedulers.io());;
+        Observable<String> observable04 = Observable.just(task04).map(new Function<Task, String>() {
+            @Override
+            public String apply(Task task) throws Throwable {
+                Thread.sleep(3000);
+                LogUtil.log(task.taskName+"执行doTask()：线程"+Thread.currentThread().getName());
+                return task.doTask();
+            }
+        }).subscribeOn(Schedulers.io());;
+
+        Observable<String>  observable0102=  Observable.zip(observable01, observable02, new BiFunction<String, String, String>() {
+            @Override
+            public String apply(String s, String s2) throws Throwable {
+                LogUtil.log("observable0102 合并结果："+s +s2);
+                LogUtil.log("observable0102 合并结果：线程"+Thread.currentThread().getName());
+                return s +s2;
+            }
+        });
+
+        Observable<String>  observable0304=  Observable.zip(observable03, observable04, new BiFunction<String, String, String>() {
+            @Override
+            public String apply(String s, String s2) throws Throwable {
+                LogUtil.log("observable0304 合并结果："+s +s2);
+                LogUtil.log("observable0304 合并结果：线程"+Thread.currentThread().getName());
+                return s +s2;
+            }
+        });
+
+        Observable.zip(observable0102, observable0304, new BiFunction<String, String, String>() {
+            @Override
+            public String apply(String s, String s2) throws Throwable {
+                return s +s2;
+            }
+        }).subscribe(new DisposableObserver<String>() {
+            @Override
+            public void onNext(String o) {
+
+                LogUtil.log("显示结果："+o);
+
+            }
+
+            @Override
+            public void onError(@io.reactivex.rxjava3.annotations.NonNull Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                LogUtil.log("onComplete：");
+            }
+        });
+
+
+    }
+
+    private static class Task {
+        public String taskName;
+
+        public Task(String taskName) {
+            this.taskName = taskName;
+        }
+
+        public String doTask() {
+            return taskName;
+        }
     }
 
 

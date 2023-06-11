@@ -121,7 +121,11 @@ public class BaseActivity extends AppCompatActivity implements IViewStatusAction
 
     /********************************************工具方法***********************************************************************/
 
-
+    /**
+     * Blankj 屏幕适配方案， 使用pt为单位。
+     * 在关闭该功能后，pt效果等同于dp哦
+     * @return
+     */
     @Override
     public Resources getResources() {
         if (ScreenUtils.isPortrait()) {

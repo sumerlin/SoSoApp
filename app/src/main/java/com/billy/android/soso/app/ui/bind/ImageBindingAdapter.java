@@ -13,7 +13,7 @@ import com.billy.android.soso.framwork.common.image.ImageLoader;
 
 public class ImageBindingAdapter {
     @BindingAdapter(value = {"url", "blurLevel", "radius", "circle"}, requireAll = false)
-    public static void show(ImageView view, String url, int blurLevel, int radius, boolean circle) {
+    public  void show(ImageView view, String url, int blurLevel, int radius, boolean circle) {
 
         if (blurLevel == 0 && radius == 0 && !circle)
             ImageLoader

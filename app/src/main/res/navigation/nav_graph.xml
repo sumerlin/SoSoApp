@@ -5,7 +5,7 @@
     android:id="@+id/nav_graph"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:startDestination="@id/glideFragment">
+    app:startDestination="@id/rxjavaFragment">
     <!--    app:startDestination="@id/listFragment">-->
 
     <!--fragment 代表Fragment，action代表 跳转动作-->
