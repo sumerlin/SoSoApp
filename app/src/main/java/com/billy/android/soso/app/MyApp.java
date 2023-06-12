@@ -9,6 +9,10 @@ import com.billy.android.soso.framwork.common.image.ImageLoader;
 import com.billy.android.soso.framwork.view.status.Gloading;
 import com.billy.android.soso.framwork.view.status.GlobalAdapter;
 
+import io.flutter.embedding.engine.FlutterEngine;
+import io.flutter.embedding.engine.FlutterEngineCache;
+import io.flutter.embedding.engine.dart.DartExecutor;
+
 public class MyApp extends BaseApplication {
 
     @Override
@@ -17,6 +21,7 @@ public class MyApp extends BaseApplication {
         NetConfig();
         UiViewStatusConfig();
         ImageConfig();
+        FlutterConfig();
 
     }
 
@@ -39,5 +44,21 @@ public class MyApp extends BaseApplication {
                 .error(R.drawable.ic_launcher_background)
                 .fallback(R.drawable.ic_launcher_background);
         ImageLoader.init(builder);
+    }
+
+
+    private FlutterEngine mEngine;
+    private void FlutterConfig(){
+         mEngine = new FlutterEngine(this);
+        mEngine.getDartExecutor().executeDartEntrypoint(DartExecutor.DartEntrypoint.createDefault());
+
+        FlutterEngineCache.getInstance().put("Flutter_Engine", mEngine);
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        mEngine.destroy();
+
     }
 }

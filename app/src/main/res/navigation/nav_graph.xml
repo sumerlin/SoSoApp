@@ -5,7 +5,7 @@
     android:id="@+id/nav_graph"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:startDestination="@id/rxjavaFragment">
+    app:startDestination="@id/flutterFragment">
     <!--    app:startDestination="@id/listFragment">-->
 
     <!--fragment 代表Fragment，action代表 跳转动作-->
@@ -99,6 +99,10 @@
         android:id="@+id/glideFragment"
         android:name="com.billy.android.soso.app.ui.page.GlideFragment"
         android:label="GlideFragment" />
+    <fragment
+        android:id="@+id/flutterFragment"
+        android:name="com.billy.android.soso.app.ui.page.FlutterFragment"
+        android:label="FlutterFragment" />
 
 
 </navigation>

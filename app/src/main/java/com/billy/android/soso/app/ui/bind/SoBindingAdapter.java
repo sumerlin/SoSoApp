@@ -1,5 +1,6 @@
 package com.billy.android.soso.app.ui.bind;
 
+import androidx.annotation.NonNull;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -34,7 +35,7 @@ public class SoBindingAdapter {
      * @param list
      */
     @BindingAdapter(value = {"freshList"}, requireAll = false)
-    public static void freshList(RecyclerView recyclerView, List list) {
+    public  void freshList(@NonNull RecyclerView recyclerView, List list) {
         if (recyclerView.getAdapter() != null) {
             ListViewAdapter adapter = (ListViewAdapter) recyclerView.getAdapter();
 //            adapter.submitList(list);
