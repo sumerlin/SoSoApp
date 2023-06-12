@@ -16,8 +16,12 @@ ViewModel 用来托管view状态和事件，ViewModel 作为 视图控制器 和
 2.RecyclerView处于 Fling 状态，无法左右滑动 ViewPager2 <br>
 3.Androidx ViewPage2 + Fragment 懒加载设置 <br>
 
-图片：
+图片：<br>
 1.封装Glide 接口。<br>
 2.提供ImageLoader 图片加载工具。<br>
 3.提供普通、圆角、圆形、高斯模糊 加载方法。<br>
 4.优化，利用Glide的生命周期功能，根据Context 调用不同方法 <br>
+
+Flutter：<br>
+1.Android 原生引入Flutter module。<br>
+2.解决引入项目编译出错问题。<br>
