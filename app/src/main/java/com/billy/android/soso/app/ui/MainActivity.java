@@ -4,8 +4,11 @@ package com.billy.android.soso.app.ui;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.DefaultLifecycleObserver;
+import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
@@ -37,6 +40,13 @@ public class MainActivity extends VmDataBindingActivity {
         mLoginViewModel = getActivityScopeViewModel(LoginViewModel.class);
         mClickProxy = getActivityScopeViewModel(ClickProxy.class);
         mRequestViewModel = getActivityScopeViewModel(RequestViewModel.class);
+
+        getLifecycle().addObserver(new DefaultLifecycleObserver() {
+            @Override
+            public void onCreate(@NonNull LifecycleOwner owner) {
+                DefaultLifecycleObserver.super.onCreate(owner);
+            }
+        });
 
 
     }
@@ -85,6 +95,7 @@ public class MainActivity extends VmDataBindingActivity {
                 mLoginViewModel.input = "222";
                 binding.setLoginViewModel(mLoginViewModel);
 
+//                mLoginViewModel.infoList.set(new InfoList());
             }
         });
 
@@ -125,7 +136,10 @@ public class MainActivity extends VmDataBindingActivity {
         public final SoMutableLiveData<Boolean> clickGet = new SoMutableLiveData<>();
         public final SoMutableLiveData<Boolean> clickPost = new SoMutableLiveData<>();
 
-
+        @Override
+        protected void onCleared() {
+            super.onCleared();
+        }
 
         public void clickLogin(View view) {
             LogUtil.log("=========clickLogin============");

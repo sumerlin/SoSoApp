@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:onClick="@{clickProxy::clickPost}"
             android:text="post" />
-
+<!--           android:onClick="@{clickProxy::clickPost}"-->
 
         <!--        <FrameLayout-->
         <!--            android:layout_width="match_parent"-->
